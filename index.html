@@ -19,6 +19,8 @@ and open the template in the editor.
                 background-attachment: fixed;
                 font-family: trebuchet, arial, sans-serif;
                 text-align:center;
+                overflow-x: hidden;
+
             }
             #main {
                 height:2000px;
@@ -38,17 +40,46 @@ and open the template in the editor.
             }
             .title {
                 font-family: sansita-one, impact;
-                font-size: 60pt;
-                margin-top:250px;
+                font-size: 46pt;
+                margin-top:300px;
             }
             .icons {
                 text-align:center;
             }
+            li {
+                list-style-type: none;
+                font-size: 8pt;
+            }
+            
+            @media screen and (max-width: 500px) {
+                body {
+                }
+                #main {
+                    width:100%;
+                    border: none;
+                    transform: none;
+                    position: absolute;
+                    left: -25px;
+                    -ms-transform: none; /* IE 9 */
+                    -webkit-transform: none; /* Chrome, Safari, Opera */
+                }
+
+            }
+            
+            @media screen and (max-height: 625px) {
+                .title {
+                    margin: 10px;
+                }
+                body {
+                    overflow-y: hidden;
+                }
+            }
+
         </style>
     </head>
     <body>
         <div id="main">
-            <div class="title">I have a lot to say</div>
+            <div class="title">It's What I Do</div>
             <div class="icons">
                 <a href="http://nerdypaws.twitter.com" class="social_icon"><img src="assets/images/Twitter.png"/></a>
                 <a href="https://www.linkedin.com/in/amycodes" class="social_icon"><img src="assets/images/Linkedin.png"/></a>
@@ -60,8 +91,8 @@ and open the template in the editor.
             <div class="credits">
                 <ul>
                     <li>Icons from <a href="http://www.designbolts.com/2013/06/27/new-flat-free-social-media-icons-2013/">Design Bolts</a> (<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/legalcode">license</a>)</li>
-                    <li>Fonts from <a href="">Omnibus Type on FontSquirrel</a> (<a href="http://www.fontsquirrel.com/license/sansita-one">license</a>)</li>
-                    <li>Code lives in <a href="">GitHub</a></li>
+                    <li>Fonts from <a href="http://www.fontsquirrel.com/fonts/sansita-one">Omnibus Type on FontSquirrel</a> (<a href="http://www.fontsquirrel.com/license/sansita-one">license</a>)</li>
+                    <li>Ping me at <a href="mailto:icode@amy-codes.com">iCode@amy-codes.com</a></li>
                 </ul>
             </div>
         </div>
