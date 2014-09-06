@@ -30,4 +30,8 @@ class GenericSocialPost {
         
     }
     
+    public function __get($name) {
+        if ( $name == "date" ) return $this->date;
+    }
+    
 }

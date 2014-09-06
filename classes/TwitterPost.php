@@ -1,6 +1,6 @@
 <?php
 
-include 'GenericSocialPost.php';
+include_once 'GenericSocialPost.php';
 /**
  * Description of TwitterPost
  *
