@@ -19,28 +19,27 @@ and open the template in the editor.
                 background-attachment: fixed;
                 font-family: trebuchet, arial, sans-serif;
                 text-align:center;
-                overflow-x: hidden;
+                
 
             }
+            #container {
+                margin:-5px auto;
+                width: 760px;
+            }
             #main {
-                height:2000px;
-                width:400px;
+                width: 500px;
                 background-color: #fff;
                 border-left: 2px solid darkslateblue;
                 border-right: 2px solid darkslateblue;
                 opacity: .95;
                 filter: alpha(95);
-                margin: 0;
-                padding: 0 25px;
-                position: absolute;
-                left: 50%;
-                transform: translate(-200px, -20px);
-                -ms-transform: translate(-200px,-20px); /* IE 9 */
-                -webkit-transform: translate(-200px, -20px); /* Chrome, Safari, Opera */
+                margin: -10px auto 0;
+                padding: 25px 25px;
+                float: left;
             }
-            .title {
+            .title{
                 font-family: sansita-one, impact;
-                font-size: 46pt;
+                font-size: 40pt;
                 margin-top: 50px;
             }
             .icons {
@@ -99,11 +98,15 @@ and open the template in the editor.
                 border-radius: 15px;
                 margin-bottom: 30px;
                 overflow: hidden;
-                
             }
             .social_post .content {
                 float:left;
                 margin: 5px 15px;
+            }
+            .social_post .content img {
+                width: 100%;
+                border-radius: 15px;
+                margin-top:5px;
             }
             .social_post .stats {
                 background-color: azure;
@@ -121,20 +124,55 @@ and open the template in the editor.
                 float:right;
                 margin-right:10px;
             }
+            #sidebar {
+                width: 150px;
+                float: left;
+                background-color: #fff;
+                padding: 20px 0 10px;
+                border: thin solid black;
+                border-radius: 10px;
+                margin: 10px 0 0 10px;
+            }
+            #sidebar img.social_icon {
+                width:50px;
+                padding:3px;
+            }
+            #sidebar img.profilepic {
+                width: 110px;
+            }
         </style>
     </head>
     <body>
+        <div id="container">
         <div id="main">
             <div class="title">It's What I Do</div>
             <?php
-                include 'classes/TwitterFeed.php';
+                include_once 'classes/TwitterFeed.php';
+                include_once 'classes/TumblrFeed.php';
+                include_once 'classes/FeedUtils.php';
 
                 $twitter_feed = new TwitterFeed();
-                $posts = $twitter_feed->getFeedPosts();
+                $tumblr_feed = new TumblrFeed();
+                $posts = array_merge(
+                        $twitter_feed->getFeedPosts(),
+                        $tumblr_feed->getFeedPosts()
+                        );
+                FeedUtils::sort_feed_by_day($posts);
+                
                 foreach ( $posts as $post ) {
                     echo $post->toHTML();
                 }
             ?>
         </div>
-        
+        <div id="sidebar">
+            <img class="profilepic" src="assets/images/profilepic.jpg"/>
+            <a href="http://www.twitter.com/nerdypaws"><img class="social_icon" src="assets/images/Twitter.png" alt="Twitter"/></a>
+            <a href="http://amycodes.tumblr.com"><img class="social_icon" src="assets/images/Tumblr.png" alt="Tumblr"/></a>
+            <a href="https://www.linkedin.com/in/amycodes"><img class="social_icon" src="assets/images/Linkedin.png" alt="LinkedIn"/></a>
+            <a href="http://amycodes.wordpress.com/"><img class="social_icon" src="assets/images/Wordpress.png" alt="WordPress"/></a>
+            <a href="https://plus.google.com/u/0/+AmyArambuloNegrette/about"><img class="social_icon" src="assets/images/Google-plus.png" alt="Google Plus"/></a>
+            <a href="https://github.com/amycodes/amycodes-site"><img class="social_icon" src="assets/images/Github.png" alt="Git Hub"/></a>
+            
+        </div>
+        </div>
     </body>
