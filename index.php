@@ -140,6 +140,17 @@ and open the template in the editor.
             #sidebar img.profilepic {
                 width: 110px;
             }
+            
+            .social_post .title {
+                font-size: 14pt;
+            }
+            
+            .social_post .commits {
+                text-align: left;
+            }
+            .social_post .commits img {
+                width:auto;
+            }
         </style>
     </head>
     <body>
@@ -149,13 +160,17 @@ and open the template in the editor.
             <?php
                 include_once 'classes/TwitterFeed.php';
                 include_once 'classes/TumblrFeed.php';
+                include_once 'classes/GitHubFeed.php';
+
                 include_once 'classes/FeedUtils.php';
 
                 $twitter_feed = new TwitterFeed();
                 $tumblr_feed = new TumblrFeed();
+                $github_feed = new GitHubFeed();
                 $posts = array_merge(
                         $twitter_feed->getFeedPosts(),
-                        $tumblr_feed->getFeedPosts()
+                        $tumblr_feed->getFeedPosts(),
+                        $github_feed->getFeedPosts()
                         );
                 FeedUtils::sort_feed_by_day($posts);
                 
