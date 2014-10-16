@@ -19,6 +19,9 @@ and open the template in the editor.
                 background-attachment: fixed;
                 font-family: trebuchet, arial, sans-serif;
                 text-align:center;
+                margin: 0;
+                padding: 0;
+                border: none;
                 
 
             }
@@ -26,13 +29,14 @@ and open the template in the editor.
                 margin:-5px auto;
                 width: 760px;
             }
+            #main, #topbar, #sidebar {
+                background-color: #fff;
+                opacity: .95;
+                filter: alpha(95);            }
             #main {
                 width: 500px;
-                background-color: #fff;
                 border-left: 2px solid darkslateblue;
                 border-right: 2px solid darkslateblue;
-                opacity: .95;
-                filter: alpha(95);
                 margin: -10px auto 0;
                 padding: 25px 25px;
                 float: left;
@@ -50,30 +54,6 @@ and open the template in the editor.
                 font-size: 8pt;
             }
             
-            @media screen and (max-width: 500px) {
-                body {
-                }
-                #main {
-                    width:100%;
-                    border: none;
-                    transform: none;
-                    position: absolute;
-                    left: -25px;
-                    -ms-transform: none; /* IE 9 */
-                    -webkit-transform: none; /* Chrome, Safari, Opera */
-                }
-
-            }
-            
-            @media screen and (max-height: 625px) {
-                .title {
-                    margin: 10px;
-                }
-                body {
-                    overflow-y: hidden;
-                }
-            }
-
             .social_post_network, .social_post_date {
                 font-family: sansita-one, impact;
                 float: left;
@@ -93,20 +73,19 @@ and open the template in the editor.
                 text-decoration: none;
             }
             .social_post {
-                width:100%;
+                width:85%;
                 border: 2px solid;
                 border-radius: 15px;
                 margin-bottom: 30px;
                 overflow: hidden;
+                padding: 25px;
             }
             .social_post .content {
                 float:left;
-                margin: 5px 15px;
             }
             .social_post .content img {
                 width: 100%;
                 border-radius: 15px;
-                margin-top:5px;
             }
             .social_post .stats {
                 background-color: azure;
@@ -123,6 +102,9 @@ and open the template in the editor.
             .social_post .link {
                 float:right;
                 margin-right:10px;
+            }
+            #topbar {
+                display:none;
             }
             #sidebar {
                 width: 150px;
@@ -151,43 +133,108 @@ and open the template in the editor.
             .social_post .commits img {
                 width:auto;
             }
+            
+            blockquote {
+                border-left: 2px solid;
+                border-radius: 15px;
+                border-top: none;
+                border-right: 2px solid;
+                border-bottom: none;
+            }
+            
+            .commits .message blockquote {
+                padding-left:15px;
+                font-size:9pt;
+            }
+            
+            @media screen and (max-width: 760px) {
+                body {
+                    padding: 0;
+                }
+                #container {
+                    width:100%;
+                    border: none;
+                }
+                #main, #topbar{
+                    border: 0 none;
+                    float: left;
+                    margin: 0;
+                    padding: 0;
+                    display: block;
+                    width:100%;
+                }
+                .title {
+                    margin:0;
+                }
+                #sidebar {
+                    display: none;
+                }
+                
+                #topbar img {
+                    width:13%;
+                }
+
+                .social_post {
+                    width:100%;
+                    border-top: 2px solid;
+                    border-radius: 15px;
+                    border-right: none;
+                    border-left: none;
+                    border-bottom: none;
+                    margin-bottom: 30px;
+                    overflow: hidden;
+                    padding: 15px 0 0 0;
+                }
+                
+                .social_post .content {
+                    padding: 0 15px;
+                }
+            }
         </style>
     </head>
     <body>
         <div id="container">
-        <div id="main">
-            <div class="title">It's What I Do</div>
-            <?php
-                include_once 'classes/TwitterFeed.php';
-                include_once 'classes/TumblrFeed.php';
-                include_once 'classes/GitHubFeed.php';
+            <div id="topbar">
+                <img class="profilepic" src="assets/images/profilepic.jpg"/>
+                <a href="http://www.twitter.com/nerdypaws"><img class="social_icon" src="assets/images/Twitter.png" alt="Twitter"/></a>
+                <a href="http://amycodes.tumblr.com"><img class="social_icon" src="assets/images/Tumblr.png" alt="Tumblr"/></a>
+                <a href="https://www.linkedin.com/in/amycodes"><img class="social_icon" src="assets/images/Linkedin.png" alt="LinkedIn"/></a>
+                <a href="http://amycodes.wordpress.com/"><img class="social_icon" src="assets/images/Wordpress.png" alt="WordPress"/></a>
+                <a href="https://plus.google.com/u/0/+AmyArambuloNegrette/about"><img class="social_icon" src="assets/images/Google-plus.png" alt="Google Plus"/></a>
+                <a href="https://github.com/amycodes/amycodes-site"><img class="social_icon" src="assets/images/Github.png" alt="Git Hub"/></a>
+            </div>
+            <div id="main">
+                <div class="title">It's What I Do</div>
+                <?php
+                    include_once 'classes/TwitterFeed.php';
+                    include_once 'classes/TumblrFeed.php';
+                    include_once 'classes/GitHubFeed.php';
 
-                include_once 'classes/FeedUtils.php';
+                    include_once 'classes/FeedUtils.php';
 
-                $twitter_feed = new TwitterFeed();
-                $tumblr_feed = new TumblrFeed();
-                $github_feed = new GitHubFeed();
-                $posts = array_merge(
-                        $twitter_feed->getFeedPosts(),
-                        $tumblr_feed->getFeedPosts(),
-                        $github_feed->getFeedPosts()
-                        );
-                FeedUtils::sort_feed_by_day($posts);
-                
-                foreach ( $posts as $post ) {
-                    echo $post->toHTML();
-                }
-            ?>
-        </div>
-        <div id="sidebar">
-            <img class="profilepic" src="assets/images/profilepic.jpg"/>
-            <a href="http://www.twitter.com/nerdypaws"><img class="social_icon" src="assets/images/Twitter.png" alt="Twitter"/></a>
-            <a href="http://amycodes.tumblr.com"><img class="social_icon" src="assets/images/Tumblr.png" alt="Tumblr"/></a>
-            <a href="https://www.linkedin.com/in/amycodes"><img class="social_icon" src="assets/images/Linkedin.png" alt="LinkedIn"/></a>
-            <a href="http://amycodes.wordpress.com/"><img class="social_icon" src="assets/images/Wordpress.png" alt="WordPress"/></a>
-            <a href="https://plus.google.com/u/0/+AmyArambuloNegrette/about"><img class="social_icon" src="assets/images/Google-plus.png" alt="Google Plus"/></a>
-            <a href="https://github.com/amycodes/amycodes-site"><img class="social_icon" src="assets/images/Github.png" alt="Git Hub"/></a>
-            
-        </div>
+                    $twitter_feed = new TwitterFeed();
+                    $tumblr_feed = new TumblrFeed();
+                    $github_feed = new GitHubFeed();
+                    $posts = array_merge(
+                            $twitter_feed->getFeedPosts(),
+                            $tumblr_feed->getFeedPosts(),
+                            $github_feed->getFeedPosts()
+                            );
+                    FeedUtils::sort_feed_by_day($posts);
+
+                    foreach ( $posts as $post ) {
+                        echo $post->toHTML();
+                    }
+                ?>
+            </div>
+            <div id="sidebar">
+                <img class="profilepic" src="assets/images/profilepic.jpg"/>
+                <a href="http://www.twitter.com/nerdypaws"><img class="social_icon" src="assets/images/Twitter.png" alt="Twitter"/></a>
+                <a href="http://amycodes.tumblr.com"><img class="social_icon" src="assets/images/Tumblr.png" alt="Tumblr"/></a>
+                <a href="https://www.linkedin.com/in/amycodes"><img class="social_icon" src="assets/images/Linkedin.png" alt="LinkedIn"/></a>
+                <a href="http://amycodes.wordpress.com/"><img class="social_icon" src="assets/images/Wordpress.png" alt="WordPress"/></a>
+                <a href="https://plus.google.com/u/0/+AmyArambuloNegrette/about"><img class="social_icon" src="assets/images/Google-plus.png" alt="Google Plus"/></a>
+                <a href="https://github.com/amycodes/amycodes-site"><img class="social_icon" src="assets/images/Github.png" alt="Git Hub"/></a>
+            </div>
         </div>
     </body>
