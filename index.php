@@ -209,16 +209,19 @@ and open the template in the editor.
                     include_once 'classes/TwitterFeed.php';
                     include_once 'classes/TumblrFeed.php';
                     include_once 'classes/GitHubFeed.php';
+                    include_once 'classes/StackExchangeFeed.php';
 
                     include_once 'classes/FeedUtils.php';
 
                     $twitter_feed = new TwitterFeed();
                     $tumblr_feed = new TumblrFeed();
                     $github_feed = new GitHubFeed();
+                    $se_feed = new StackExchangeFeed();
                     $posts = array_merge(
                             $twitter_feed->getFeedPosts(),
                             $tumblr_feed->getFeedPosts(),
-                            $github_feed->getFeedPosts()
+                            $github_feed->getFeedPosts(),
+                            $se_feed->getFeedPosts()
                             );
                     FeedUtils::sort_feed_by_day($posts);
 
