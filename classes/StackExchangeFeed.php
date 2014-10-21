@@ -36,7 +36,12 @@ class StackExchangeFeed implements iSocialFeed {
             $post = $se_post["title"];
             $url = "http://stackexchange.com/users/" . $this->stackexchange_id;
             if ( $se_post["activity_type"] == "badge_earned" ) {
-                $link = $se_post["api_site_parameter"] . ".stackexchange.com";
+                if ( strpos($se_post["api_site_parameter"], "stackoverflow") !== FALSE ||
+                        strpos($se_post["api_site_parameter"], "serverfault") !== FALSE) {
+                    $link = "http://" . $se_post["api_site_parameter"] . ".com";
+                }
+                else 
+                    $link = "http://" . $se_post["api_site_parameter"] . ".stackexchange.com";
                 $post = "Earned " . $se_post["title"] . " Badge on <a href='$link'>$link</a>!";
             } else if ( $se_post["activity_type"] == "answer_posted" ) {
                 $url = $se_post["link"];
